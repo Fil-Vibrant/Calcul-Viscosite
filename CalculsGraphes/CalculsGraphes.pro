@@ -10,10 +10,12 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    calculs.cpp
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    calculs.h
 
 FORMS += \
     mainwindow.ui
@@ -22,3 +24,25 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+INCLUDEPATH += $$PWD/'../../../../../../Program Files/scilab-5.5.2/modules/core/includes'
+INCLUDEPATH += $$PWD/'../../../../../../Program Files/scilab-5.5.2/modules/call_scilab/includes'
+INCLUDEPATH += $$PWD/'../../../../../../Program Files/scilab-5.5.2/modules/api_scilab/includes'
+INCLUDEPATH += $$PWD/'../../../../../../Program Files/scilab-5.5.2/modules/output_stream/includes'
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/'../../../../../../Program Files/scilab-5.5.2/bin/' -lcall_scilab
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/'../../../../../../Program Files/scilab-5.5.2/bin/' -lcall_scilabd
+else:unix: LIBS += -L$$PWD/'../../../../../../Program Files/scilab-5.5.2/bin/' -lcall_scilab
+
+INCLUDEPATH += $$PWD/'../../../../../../Program Files/scilab-5.5.2/bin'
+DEPENDPATH += $$PWD/'../../../../../../Program Files/scilab-5.5.2/bin'
+
+
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/'../../../../../../Program Files/scilab-5.5.2/bin/' -lapi_scilab
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/'../../../../../../Program Files/scilab-5.5.2/bin/' -lapi_scilabd
+else:unix: LIBS += -L$$PWD/'../../../../../../Program Files/scilab-5.5.2/bin/' -lapi_scilab
+
+INCLUDEPATH += $$PWD/'../../../../../../Program Files/scilab-5.5.2/bin'
+DEPENDPATH += $$PWD/'../../../../../../Program Files/scilab-5.5.2/bin'
+
