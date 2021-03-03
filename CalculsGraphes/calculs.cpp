@@ -49,7 +49,7 @@ void Calculs::calculDelta0()
     }
 }
 
-void Calculs::getDVexpValues()
+vector<double> Calculs::getDVexpValues()
 {
     int* piDVexp = NULL;
 
@@ -57,7 +57,7 @@ void Calculs::getDVexpValues()
 
     if (DVexp.iErr)
     {
-        qDebug() << "Impossible de recuperer une des variables";
+        qDebug() << "Impossible de recuperer la variable";
     }
     else
     {
@@ -73,6 +73,30 @@ void Calculs::getDVexpValues()
     }
 }
 
+vector<double> Calculs::getFrequencies()
+{
+    int* piFreq;
+
+    SciErr Freq = getVarAddressFromName(pvApiCtx, "f", &piFreq);
+
+    if (Freq.iErr)
+    {
+        qDebug() << "Impossible de recuperer la variable";
+    }
+    else
+    {
+        int ligne, colonne;
+        double *matrixOfDouble = NULL;
+        Freq = getMatrixOfDouble(pvApiCtx, piFreq, &ligne, &colonne, &matrixOfDouble);
+        getVarDimension(pvApiCtx, piFreq, &ligne, &colonne);
+        qDebug() << ligne << colonne;
+        for (int i = 0; i < ligne; ++i)
+            freq.push_back(matrixOfDouble[i]);
+    }
+
+    return freq;
+}
+
 double Calculs::getRos()
 {
     return ros;
@@ -86,11 +110,4 @@ double Calculs::getD0i()
 double Calculs::getD0()
 {
     return delta0;
-}
-
-void Calculs::showDVexp()
-{
-    foreach (double e, dVexp) {
-        qDebug() << e;
-    }
 }

@@ -18,6 +18,7 @@ class Calculs
            ros,
            D0i;
      vector<double> dVexp;
+     vector<double> freq;
 public:
     Calculs();
     ~Calculs();
@@ -26,9 +27,9 @@ public:
            getD0i(),
            getD0();
 
-    void calculDelta0(),
-         getDVexpValues(),
-         showDVexp();
+    void calculDelta0();
+    vector<double> getDVexpValues(),
+           getFrequencies();
 };
 
 #endif // CALCULS_H

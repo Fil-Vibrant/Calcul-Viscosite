@@ -19,4 +19,7 @@ void MainWindow::on_pushButton_clicked()
     calculs.calculDelta0();
     double d0 = calculs.getD0();
     ui->label->setText(QString::number(d0));
+    vector<double> dvexp = calculs.getDVexpValues();
+    vector<double> f = calculs.getFrequencies();
+
 }
