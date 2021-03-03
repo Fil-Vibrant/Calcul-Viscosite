@@ -17,8 +17,10 @@ class Calculs
            viscosite,
            ros,
            D0i;
-     vector<double> dVexp;
-     vector<double> freq;
+
+    vector<double> dVexp;
+    vector<double> freq;
+
 public:
     Calculs();
     ~Calculs();
@@ -28,8 +30,9 @@ public:
            getD0();
 
     void calculDelta0();
+
     vector<double> getDVexpValues(),
-           getFrequencies();
+                   getFrequencies();
 };
 
 #endif // CALCULS_H

@@ -71,6 +71,8 @@ vector<double> Calculs::getDVexpValues()
             dVexp.push_back(matrixOfDouble[i]); // ajout des valeurs dans un tableau dynamique
         }
     }
+
+    return dVexp;
 }
 
 vector<double> Calculs::getFrequencies()

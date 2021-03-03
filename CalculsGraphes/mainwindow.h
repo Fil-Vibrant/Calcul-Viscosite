@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 #include "calculs.h"
+#include <QtCharts>
+
+using namespace QtCharts;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -16,6 +19,8 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void delta0ExpGraph();
+
 private slots:
     void on_pushButton_clicked();
 
@@ -23,5 +28,11 @@ private:
     Ui::MainWindow *ui;
 
     Calculs calculs;
+
+    QChart *chart;
+    QLineSeries *serie;
+
+    vector<double> dvexp,
+                   frequencies;
 };
 #endif // MAINWINDOW_H

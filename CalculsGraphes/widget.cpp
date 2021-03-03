@@ -1,20 +1,19 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
+#include "widget.h"
+#include "ui_widget.h"
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
 {
     ui->setupUi(this);
 }
 
-MainWindow::~MainWindow()
+Widget::~Widget()
 {
     delete ui;
 }
 
-
-void MainWindow::on_pushButton_clicked()
+void Widget::on_pushButton_clicked()
 {
     calculs.calculDelta0();
     double d0 = calculs.getD0();
@@ -24,7 +23,7 @@ void MainWindow::on_pushButton_clicked()
     //delta0ExpGraph();
 }
 /*
-void MainWindow::delta0ExpGraph()
+void Widget::delta0ExpGraph()
 {
     chart = new QChart();
     serie = new QLineSeries();
