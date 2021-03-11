@@ -1,7 +1,7 @@
-#ifndef CALCULS_H
-#define CALCULS_H
+#ifndef DELTA0_H
+#define DELTA0_H
 
-#include <QDebug>
+#include <QObject>
 #include "stack-c.h"
 #include "call_scilab.h"
 #include "api_scilab.h"
@@ -10,29 +10,33 @@
 
 using namespace std;
 
-class Calculs
+class Delta0 : public QObject
 {
+    Q_OBJECT
+
     double delta0,
            rayonFil,
            viscosite,
            ros,
            D0i;
-
-    vector<double> dVexp;
-    vector<double> freq;
+     vector<double> dVexp,
+                    frequencies;
 
 public:
-    Calculs();
-    ~Calculs();
+    explicit Delta0(QObject *parent = nullptr);
 
     double getRos(),
            getD0i(),
            getD0();
 
-    void calculDelta0();
-
     vector<double> getDVexpValues(),
                    getFrequencies();
+
+    void calculDelta0(),
+         showDVexp();
+
+signals:
+
 };
 
-#endif // CALCULS_H
+#endif // DELTA0_H

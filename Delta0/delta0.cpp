@@ -1,6 +1,6 @@
-#include "calculs.h"
+#include "delta0.h"
 
-Calculs::Calculs()
+Delta0::Delta0(QObject *parent) : QObject(parent)
 {
     delta0 = 0;
     rayonFil = 0;
@@ -8,21 +8,14 @@ Calculs::Calculs()
 
     if ( StartScilab(NULL, NULL, 0) == FALSE ) // Appel de Scilab
     {
-        qDebug() << "Impossible d'appeler StartScilab";
+        //qDebug() << "Impossible d'appeler StartScilab";
     }
+    else
+        SendScilabJob((char*)"exec('C:/Users/SN/Desktop/ProjetScilab/delta0.sci');");
 }
 
-Calculs::~Calculs()
+void Delta0::calculDelta0()
 {
-    if ( TerminateScilab(NULL) == FALSE ) {
-        qDebug() << "Impossible d'appeler TerminateScilab\n";
-    }
-}
-
-void Calculs::calculDelta0()
-{
-    SendScilabJob((char*)"exec('C:/Users/SN/Desktop/ProjetScilab/delta0.sci');");
-
     int* piD0 = NULL;
     int* piROS = NULL;
     int* piD0I = NULL;
@@ -33,7 +26,7 @@ void Calculs::calculDelta0()
 
     if (D0.iErr || ROS.iErr || D0I.iErr)
     {
-        qDebug() << "Impossible de recuperer une des variables";
+        //qDebug() << "Impossible de recuperer une des variables";
     }
     else
     {
@@ -49,7 +42,7 @@ void Calculs::calculDelta0()
     }
 }
 
-vector<double> Calculs::getDVexpValues()
+vector<double> Delta0::getDVexpValues()
 {
     int* piDVexp = NULL;
 
@@ -57,7 +50,7 @@ vector<double> Calculs::getDVexpValues()
 
     if (DVexp.iErr)
     {
-        qDebug() << "Impossible de recuperer la variable";
+        //qDebug() << "Impossible de recuperer une des variables";
     }
     else
     {
@@ -65,51 +58,52 @@ vector<double> Calculs::getDVexpValues()
         double *matrixOfDouble = NULL;
         DVexp = getMatrixOfDouble(pvApiCtx, piDVexp, &ligne, &colonne, &matrixOfDouble);
         getVarDimension(pvApiCtx, piDVexp, &ligne, &colonne); // récupère la taille de la matrice (nb lignes et colonnes)
-        qDebug() << ligne << colonne;
+        //qDebug() << ligne << colonne;
         for (int i = 0; i < ligne; ++i)
         {
             dVexp.push_back(matrixOfDouble[i]); // ajout des valeurs dans un tableau dynamique
         }
     }
-
     return dVexp;
 }
 
-vector<double> Calculs::getFrequencies()
+vector<double> Delta0::getFrequencies()
 {
-    int* piFreq;
+    int* piFreq = NULL;
 
     SciErr Freq = getVarAddressFromName(pvApiCtx, "f", &piFreq);
 
     if (Freq.iErr)
     {
-        qDebug() << "Impossible de recuperer la variable";
+        //qDebug() << "Impossible de recuperer une des variables";
     }
     else
     {
         int ligne, colonne;
         double *matrixOfDouble = NULL;
         Freq = getMatrixOfDouble(pvApiCtx, piFreq, &ligne, &colonne, &matrixOfDouble);
-        getVarDimension(pvApiCtx, piFreq, &ligne, &colonne);
-        qDebug() << ligne << colonne;
+        getVarDimension(pvApiCtx, piFreq, &ligne, &colonne); // récupère la taille de la matrice (nb lignes et colonnes)
+        //qDebug() << ligne << colonne;
         for (int i = 0; i < ligne; ++i)
-            freq.push_back(matrixOfDouble[i]);
+        {
+            frequencies.push_back(matrixOfDouble[i]); // ajout des valeurs dans un tableau dynamique
+        }
     }
-
-    return freq;
+    return frequencies;
 }
 
-double Calculs::getRos()
+double Delta0::getRos()
 {
     return ros;
 }
 
-double Calculs::getD0i()
+double Delta0::getD0i()
 {
     return D0i;
 }
 
-double Calculs::getD0()
+double Delta0::getD0()
 {
     return delta0;
 }
+

@@ -2,8 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "calculs.h"
 #include <QtCharts>
+#include <delta0.h>
+#include <QDebug>
 
 using namespace QtCharts;
 
@@ -19,20 +20,17 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void delta0ExpGraph();
-
 private slots:
     void on_pushButton_clicked();
 
 private:
     Ui::MainWindow *ui;
 
-    Calculs calculs;
+    vector<double> dVexp,
+                   frequencies;
 
     QChart *chart;
-    QLineSeries *serie;
-
-    vector<double> dvexp,
-                   frequencies;
+    QScatterSeries *serie;
+    QChartView *chartView;
 };
 #endif // MAINWINDOW_H
