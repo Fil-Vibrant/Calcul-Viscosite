@@ -92,6 +92,31 @@ vector<double> Delta0::getFrequencies()
     return frequencies;
 }
 
+vector<double> Delta0::getDVcalValues()
+{
+    int* piDVcal = NULL;
+
+    SciErr DVcal = getVarAddressFromName(pvApiCtx, "dVcal", &piDVcal);
+
+    if (DVcal.iErr)
+    {
+        //qDebug() << "Impossible de recuperer une des variables";
+    }
+    else
+    {
+        int ligne, colonne;
+        double *matrixOfDouble = NULL;
+        DVcal = getMatrixOfDouble(pvApiCtx, piDVcal, &ligne, &colonne, &matrixOfDouble);
+        getVarDimension(pvApiCtx, piDVcal, &ligne, &colonne); // récupère la taille de la matrice (nb lignes et colonnes)
+        //qDebug() << ligne << colonne;
+        for (int i = 0; i < ligne; ++i)
+        {
+            dVcal.push_back(matrixOfDouble[i]); // ajout des valeurs dans un tableau dynamique
+        }
+    }
+    return dVcal;
+}
+
 double Delta0::getRos()
 {
     return ros;

@@ -27,10 +27,12 @@ private:
     Ui::MainWindow *ui;
 
     vector<double> dVexp,
-                   frequencies;
+                   frequencies,
+                   dVcal;
 
     QChart *chart;
-    QScatterSeries *serie;
+    QScatterSeries *xExpSerie;
+    QSplineSeries *xCalSerie;
     QChartView *chartView;
 };
 #endif // MAINWINDOW_H

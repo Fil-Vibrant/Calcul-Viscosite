@@ -20,7 +20,8 @@ class Delta0 : public QObject
            ros,
            D0i;
      vector<double> dVexp,
-                    frequencies;
+                    frequencies,
+                    dVcal;
 
 public:
     explicit Delta0(QObject *parent = nullptr);
@@ -30,7 +31,8 @@ public:
            getD0();
 
     vector<double> getDVexpValues(),
-                   getFrequencies();
+                   getFrequencies(),
+                   getDVcalValues();
 
     void calculDelta0(),
          showDVexp();
