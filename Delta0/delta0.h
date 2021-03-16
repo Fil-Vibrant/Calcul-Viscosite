@@ -19,9 +19,11 @@ class Delta0 : public QObject
            viscosite,
            ros,
            D0i;
-     vector<double> dVexp,
+     vector<double> Xexp,
                     frequencies,
-                    dVcal;
+                    Xcal,
+                    Yexp,
+                    Ycal;
 
 public:
     explicit Delta0(QObject *parent = nullptr);
@@ -30,12 +32,13 @@ public:
            getD0i(),
            getD0();
 
-    vector<double> getDVexpValues(),
+    vector<double> getXexpValues(),
                    getFrequencies(),
-                   getDVcalValues();
+                   getXcalValues(),
+                   getYexpValues(),
+                   getYcalValues();
 
-    void calculDelta0(),
-         showDVexp();
+    void calculDelta0();
 
 signals:
 

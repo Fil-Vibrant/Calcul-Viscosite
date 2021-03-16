@@ -10,11 +10,13 @@ CONFIG += c++11
 
 SOURCES += \
     delta0.cpp \
+    graphesdelta0.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     delta0.h \
+    graphesdelta0.h \
     mainwindow.h
 
 
