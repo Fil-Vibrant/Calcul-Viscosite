@@ -5,9 +5,14 @@ GraphesDelta0::GraphesDelta0(QObject *parent) : QObject(parent)
     xChart = new QChart;
     xExpSerie = new QScatterSeries;
     xCalSerie = new QSplineSeries;
+
     xChart->legend()->hide();
     xChart->setBackgroundVisible(false);
-
+/*
+    Xexp = d0->getXexpValues();
+    Xcal = d0->getXcalValues();
+    frequencies = d0->getFrequencies();*/
+/*
     xGraph = new QChartView(xChart);
     xGraph->setRenderHint(QPainter::Antialiasing);
     xGraph->setStyleSheet("background-color: rgb(35, 39, 42)");
@@ -15,23 +20,32 @@ GraphesDelta0::GraphesDelta0(QObject *parent) : QObject(parent)
     yChart = new QChart;
     yExpSerie = new QScatterSeries;
     yCalSerie = new QSplineSeries;
+
     yChart->legend()->hide();
     yChart->setBackgroundVisible(false);
 
-    yGraph = new QChartView(yChart);
+    //yGraph = new QChartView(yChart);
     yGraph->setRenderHint(QPainter::Antialiasing);
     yGraph->setStyleSheet("background-color: rgb(35, 39, 42)");
+
+    Xexp = d0->getXexpValues();
+    Xcal = d0->getXcalValues();
+    frequencies = d0->getFrequencies();
+
+    Yexp = d0->getYexpValues();
+    Ycal = d0->getYcalValues();
+    //frequencies = d0.getFrequencies();
+*/
 }
 
 
-QChart* GraphesDelta0::drawXGraph(vector<double> xExp, vector<double> xCal, vector<double> f)
+QChartView* GraphesDelta0::drawXGraph(vector<double> xExp, vector<double> xCal, vector<double> frequencies)
 {
     for (unsigned long long i = 0; i < xExp.size(); ++i)
     {
         xExpSerie->append(frequencies[i], xExp[i]);
         xCalSerie->append(frequencies[i], xCal[i]);
     }
-
     xChart->addSeries(xCalSerie);
     xChart->addSeries(xExpSerie);
     xChart->createDefaultAxes();
@@ -45,5 +59,34 @@ QChart* GraphesDelta0::drawXGraph(vector<double> xExp, vector<double> xCal, vect
     xCalSerie->setPen(axisPen);
     xCalSerie->setColor(QColor::fromRgb(255, 0, 0, 255));
 
-    return xChart;
+    xGraph = new QChartView(xChart);
+    xGraph->setRenderHint(QPainter::Antialiasing);
+    xGraph->setStyleSheet("background-color: rgb(35, 39, 42)");
+
+    return xGraph;
 }
+/*
+QChart* GraphesDelta0::drawYGraph()
+{
+    for (unsigned long long i = 0; i < Yexp.size(); ++i)
+    {
+        yExpSerie->append(frequencies[i], Yexp[i]);
+        yExpSerie->append(frequencies[i], Ycal[i]);
+    }
+
+    yChart->addSeries(yCalSerie);
+    yChart->addSeries(yExpSerie);
+    yChart->createDefaultAxes();
+    QPen axisPen;
+    axisPen.setWidth(1);
+    yExpSerie->setMarkerShape(QScatterSeries::MarkerShapeCircle);
+    yExpSerie->setPen(axisPen);
+    yExpSerie->setColor(QColor::fromRgb(0, 0, 0, 0.));
+    yExpSerie->setBorderColor(QColor::fromRgb(117, 138, 224));
+    yExpSerie->setMarkerSize(7);
+    yCalSerie->setPen(axisPen);
+    yCalSerie->setColor(QColor::fromRgb(255, 0, 0, 255));
+
+    return yGraph;
+}
+*/

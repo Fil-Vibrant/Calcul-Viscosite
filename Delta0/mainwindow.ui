@@ -14,20 +14,23 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="4">
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="0" column="0">
      <widget class="QPushButton" name="pushButton">
       <property name="text">
        <string>PushButton</string>
       </property>
      </widget>
     </item>
-    <item row="0" column="5">
+    <item row="0" column="1">
      <widget class="QLabel" name="label">
       <property name="text">
        <string>TextLabel</string>
       </property>
      </widget>
+    </item>
+    <item row="1" column="0" colspan="2">
+     <layout class="QGridLayout" name="graphLayout"/>
     </item>
    </layout>
   </widget>

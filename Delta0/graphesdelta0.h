@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QtCharts>
 #include <vector>
+#include <delta0.h>
 
 using namespace QtCharts;
 using namespace std;
@@ -12,28 +13,30 @@ class GraphesDelta0 : public QObject
 {
     Q_OBJECT
 
-private:
+private:/*
     vector<double> Xexp,
                    frequencies,
                    Xcal,
                    Yexp,
-                   Ycal;
+                   Ycal;*/
 
-    QChart *xChart;
-    QScatterSeries *xExpSerie;
-    QSplineSeries *xCalSerie;
-    QChartView *xGraph;
+    Delta0 *d0;
 
-    QChart *yChart;
-    QScatterSeries *yExpSerie;
-    QSplineSeries *yCalSerie;
-    QChartView *yGraph;
+    QChart* xChart;
+    QScatterSeries* xExpSerie;
+    QSplineSeries* xCalSerie;
+    QChartView* xGraph;
+
+    QChart* yChart;
+    QScatterSeries* yExpSerie;
+    QSplineSeries* yCalSerie;
+    //QChartView* yGraph;
 
 public:
     explicit GraphesDelta0(QObject *parent = nullptr);
 
-    QChart* drawXGraph(vector<double> xExp, vector<double> xCal, vector<double> f);
-    QChart* drawYGraph(vector<double> yExp, vector<double> yCal, vector<double> f);
+    QChartView* drawXGraph(vector<double> xExp, vector<double> xCal, vector<double> frequencies);
+    QChart* drawYGraph();
 
 signals:
 

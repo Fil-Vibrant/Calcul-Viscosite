@@ -62,7 +62,7 @@ vector<double> Delta0::getXexpValues()
     {
         int ligne, colonne;
         double *matrixOfDouble = NULL;
-        xexp = getMatrixOfDouble(pvApiCtx, piXexp, &ligne, &colonne, &matrixOfDouble);
+        getMatrixOfDouble(pvApiCtx, piXexp, &ligne, &colonne, &matrixOfDouble);
         getVarDimension(pvApiCtx, piXexp, &ligne, &colonne); // récupère la taille de la matrice (nb lignes et colonnes)
         //qDebug() << ligne << colonne;
         for (int i = 0; i < ligne; ++i)

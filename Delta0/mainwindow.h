@@ -5,6 +5,7 @@
 #include <QtCharts>
 #include <delta0.h>
 #include <QDebug>
+#include <graphesdelta0.h>
 
 using namespace QtCharts;
 
@@ -26,20 +27,6 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
-    vector<double> Xexp,
-                   frequencies,
-                   Xcal,
-                   Yexp,
-                   Ycal;
-
-    QChart *xChart;
-    QScatterSeries *xExpSerie;
-    QSplineSeries *xCalSerie;
-    QChartView *xGraph;
-
-    QChart *yChart;
-    QScatterSeries *yExpSerie;
-    QSplineSeries *yCalSerie;
-    QChartView *yGraph;
+    QChartView* xGraph;
 };
 #endif // MAINWINDOW_H
