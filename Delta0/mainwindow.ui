@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>693</width>
-    <height>368</height>
+    <width>969</width>
+    <height>505</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout_2">
+   <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
      <widget class="QPushButton" name="pushButton">
       <property name="text">
@@ -30,7 +30,14 @@
      </widget>
     </item>
     <item row="1" column="0" colspan="2">
-     <layout class="QGridLayout" name="graphLayout"/>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="1" column="0">
+       <layout class="QGridLayout" name="yGraphLayout"/>
+      </item>
+      <item row="0" column="0">
+       <layout class="QGridLayout" name="xGraphLayout"/>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>

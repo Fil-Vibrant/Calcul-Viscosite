@@ -7,6 +7,7 @@
 #include "api_scilab.h"
 #include "Scierror.h"
 #include <vector>
+#include <QDebug>
 
 using namespace std;
 
@@ -16,7 +17,6 @@ class Delta0 : public QObject
 
     double delta0,
            rayonFil,
-           viscosite,
            ros,
            D0i;
      vector<double> Xexp,
@@ -32,11 +32,17 @@ public:
            getD0i(),
            getD0();
 
-    vector<double> getXexpValues(),
-                   getFrequencies(),
-                   getXcalValues(),
-                   getYexpValues(),
-                   getYcalValues();
+    vector<double> getXexp(),
+                   getXcal(),
+                   getFreq(),
+                   getYexp(),
+                   getYcal();
+
+    void getXexpValues(),
+         getFrequencies(),
+         getXcalValues(),
+         getYexpValues(),
+         getYcalValues();
 
     void calculDelta0();
 

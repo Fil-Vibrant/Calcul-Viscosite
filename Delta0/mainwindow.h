@@ -27,6 +27,14 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
+    QChart* xChart;
+    QScatterSeries* xExpSerie;
+    QSplineSeries* xCalSerie;
     QChartView* xGraph;
+
+    QChart* yChart;
+    QScatterSeries* yExpSerie;
+    QSplineSeries* yCalSerie;
+    QChartView* yGraph;
 };
 #endif // MAINWINDOW_H

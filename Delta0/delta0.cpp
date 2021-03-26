@@ -4,7 +4,7 @@ Delta0::Delta0(QObject *parent) : QObject(parent)
 {
     delta0 = 0;
     rayonFil = 0;
-    viscosite = 0;
+    //viscosite = 0;
 
 }
 
@@ -40,6 +40,12 @@ void Delta0::calculDelta0()
         ros = *matrixOfDouble; // récupération de ros
         D0I = getMatrixOfDouble(pvApiCtx, piD0I, &ligne, &colonne, &matrixOfDouble);
         D0i = *matrixOfDouble; // récupréation de d0i
+
+        getXexpValues();
+        getFrequencies();
+        getXcalValues();
+        getYexpValues();
+        getYcalValues();
     }
 
     if (TerminateScilab(NULL) == FALSE)
@@ -48,15 +54,16 @@ void Delta0::calculDelta0()
     }
 }
 
-vector<double> Delta0::getXexpValues()
+void Delta0::getXexpValues()
 {
+    qDebug() << "xexp";
     int* piXexp = NULL;
 
     SciErr xexp = getVarAddressFromName(pvApiCtx, "Xexp", &piXexp);
 
     if (xexp.iErr)
     {
-        //qDebug() << "Impossible de recuperer une des variables";
+        qDebug() << "Impossible de recuperer une des variables";
     }
     else
     {
@@ -65,15 +72,16 @@ vector<double> Delta0::getXexpValues()
         getMatrixOfDouble(pvApiCtx, piXexp, &ligne, &colonne, &matrixOfDouble);
         getVarDimension(pvApiCtx, piXexp, &ligne, &colonne); // récupère la taille de la matrice (nb lignes et colonnes)
         //qDebug() << ligne << colonne;
+        qDebug() << "getting values ...";
         for (int i = 0; i < ligne; ++i)
         {
             Xexp.push_back(matrixOfDouble[i]); // ajout des valeurs dans un tableau dynamique
         }
+        qDebug() << "values added";
     }
-    return Xexp;
 }
 
-vector<double> Delta0::getFrequencies()
+void Delta0::getFrequencies()
 {
     int* piFreq = NULL;
 
@@ -95,10 +103,9 @@ vector<double> Delta0::getFrequencies()
             frequencies.push_back(matrixOfDouble[i]); // ajout des valeurs dans un tableau dynamique
         }
     }
-    return frequencies;
 }
 
-vector<double> Delta0::getXcalValues()
+void Delta0::getXcalValues()
 {
     int* piXcal = NULL;
 
@@ -120,10 +127,9 @@ vector<double> Delta0::getXcalValues()
             Xcal.push_back(matrixOfDouble[i]); // ajout des valeurs dans un tableau dynamique
         }
     }
-    return Xcal;
 }
 
-vector<double> Delta0::getYexpValues()
+void Delta0::getYexpValues()
 {
     int* piYexp = NULL;
 
@@ -145,10 +151,9 @@ vector<double> Delta0::getYexpValues()
             Yexp.push_back(matrixOfDouble[i]); // ajout des valeurs dans un tableau dynamique
         }
     }
-    return Yexp;
 }
 
-vector<double> Delta0::getYcalValues()
+void Delta0::getYcalValues()
 {
     int* piYcal = NULL;
 
@@ -170,7 +175,6 @@ vector<double> Delta0::getYcalValues()
             Ycal.push_back(matrixOfDouble[i]); // ajout des valeurs dans un tableau dynamique
         }
     }
-    return Ycal;
 }
 
 double Delta0::getRos()
@@ -188,3 +192,28 @@ double Delta0::getD0()
     return delta0;
 }
 
+vector<double> Delta0::getXexp()
+{
+    return Xexp;
+}
+
+vector<double> Delta0::getXcal()
+{
+    return Xcal;
+}
+
+vector<double> Delta0::getFreq()
+{
+    return frequencies;
+}
+
+
+vector<double> Delta0::getYexp()
+{
+    return Yexp;
+}
+
+vector<double> Delta0::getYcal()
+{
+    return Ycal;
+}
