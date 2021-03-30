@@ -20,6 +20,10 @@ GraphesDelta0::GraphesDelta0(QObject *parent) : QObject(parent)
 
     yChart->legend()->hide();
     yChart->setBackgroundVisible(false);
+
+    f = new QValueAxis;
+    x = new QValueAxis;
+    y = new QValueAxis;
 }
 
 QChart* GraphesDelta0::drawXGraph(vector<double> xExp, vector<double> xCal, vector<double> frequencies)
@@ -33,7 +37,16 @@ QChart* GraphesDelta0::drawXGraph(vector<double> xExp, vector<double> xCal, vect
     xChart->addSeries(xCalSerie);
     xChart->addSeries(xExpSerie);
 
-    xChart->createDefaultAxes();
+    //xChart->createDefaultAxes();
+
+    f->setRange(frequencies[0], frequencies[frequencies.size()-1]);
+    x->setRange(); // need min
+    x->setGridLineColor(Qt::green);
+    f->setGridLineColor(Qt::red);
+    f->setMinorGridLineColor(Qt::blue);
+
+    xChart->setAxisX(f);
+    xChart->setAxisY(x);
 
     QPen axisPen;
     axisPen.setWidth(1);

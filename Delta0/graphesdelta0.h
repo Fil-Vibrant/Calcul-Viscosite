@@ -22,6 +22,8 @@ private:
     QSplineSeries* xCalSerie;
     QChartView* xGraph;
 
+    QAbstractAxis *f, *x, *y;
+
     QChart* yChart;
     QScatterSeries* yExpSerie;
     QSplineSeries* yCalSerie;

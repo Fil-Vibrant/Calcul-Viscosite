@@ -8,15 +8,11 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     xChart = new QChart;
-    xExpSerie = new QScatterSeries;
-    xCalSerie = new QSplineSeries;
 
     xChart->legend()->hide();
     xChart->setBackgroundVisible(false);
 
     yChart = new QChart;
-    yExpSerie = new QScatterSeries;
-    yCalSerie = new QSplineSeries;
 
     yChart->legend()->hide();
     yChart->setBackgroundVisible(false);
