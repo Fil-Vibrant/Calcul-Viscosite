@@ -22,7 +22,7 @@ private:
     QSplineSeries* xCalSerie;
     QChartView* xGraph;
 
-    QAbstractAxis *f, *x, *y;
+    QValueAxis *xf, *yf, *x, *y;
 
     QChart* yChart;
     QScatterSeries* yExpSerie;

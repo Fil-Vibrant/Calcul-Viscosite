@@ -21,32 +21,52 @@ GraphesDelta0::GraphesDelta0(QObject *parent) : QObject(parent)
     yChart->legend()->hide();
     yChart->setBackgroundVisible(false);
 
-    f = new QValueAxis;
+    xf = new QValueAxis;
+    yf = new QValueAxis;
     x = new QValueAxis;
     y = new QValueAxis;
 }
 
 QChart* GraphesDelta0::drawXGraph(vector<double> xExp, vector<double> xCal, vector<double> frequencies)
 {
+
+    double min = xExp[0];
+    double max = xExp[0];
     for (unsigned long long i = 0; i < xExp.size(); ++i)
     {
         xExpSerie->append(frequencies[i], xExp[i]);
         xCalSerie->append(frequencies[i], xCal[i]);
+        if (xExp[i] < min)
+            min = xExp[i];
+        else
+        {
+            if (xExp[i] > max)
+                max = xExp[i];
+        }
     }
 
     xChart->addSeries(xCalSerie);
     xChart->addSeries(xExpSerie);
 
-    //xChart->createDefaultAxes();
+    xf->setRange(frequencies[0]-0.05, frequencies[frequencies.size()-1]+0.05);
+    x->setRange(min-0.00005, max+0.00005);
+    x->setTickCount(5);
+    xf->setTickCount(20);
+    QPen minorPen(QColor::fromRgb(76, 85, 92), 1, Qt::SolidLine);
+    x->setMinorGridLinePen(minorPen);
+    x->setMinorTickCount(10);
+    xf->setMinorTickCount(10);
+    xf->setMinorGridLinePen(minorPen);
 
-    f->setRange(frequencies[0], frequencies[frequencies.size()-1]);
-    x->setRange(); // need min
-    x->setGridLineColor(Qt::green);
-    f->setGridLineColor(Qt::red);
-    f->setMinorGridLineColor(Qt::blue);
-
-    xChart->setAxisX(f);
+    xChart->setAxisX(xf);
     xChart->setAxisY(x);
+
+    xExpSerie->attachAxis(x);
+    xExpSerie->attachAxis(xf);
+    xCalSerie->attachAxis(x);
+    xCalSerie->attachAxis(xf);
+
+    //xChart->createDefaultAxes();
 
     QPen axisPen;
     axisPen.setWidth(1);
@@ -65,15 +85,43 @@ QChart* GraphesDelta0::drawXGraph(vector<double> xExp, vector<double> xCal, vect
 
 QChart* GraphesDelta0::drawYGraph(vector<double> yExp, vector<double> yCal, vector<double> frequencies)
 {
+    double min = yExp[0];
+    double max = yExp[0];
     for (unsigned long long i = 0; i < yExp.size(); ++i)
     {
         yExpSerie->append(frequencies[i], yExp[i]);
         yCalSerie->append(frequencies[i], yCal[i]);
+
+        if (yExp[i] < min)
+            min = yExp[i];
+        else
+        {
+            if (yExp[i] > max)
+                max = yExp[i];
+        }
     }
 
     yChart->addSeries(yCalSerie);
     yChart->addSeries(yExpSerie);
-    yChart->createDefaultAxes();
+    //yChart->createDefaultAxes();
+
+    yf->setRange(frequencies[0]-0.05, frequencies[frequencies.size()-1]+0.05);
+    y->setRange(min-0.00005, max+0.00005);
+    y->setTickCount(5);
+    yf->setTickCount(20);
+    QPen minorPen(QColor::fromRgb(76, 85, 92), 1, Qt::SolidLine);
+    y->setMinorGridLinePen(minorPen);
+    y->setMinorTickCount(10);
+    yf->setMinorTickCount(10);
+    yf->setMinorGridLinePen(minorPen);
+
+    yChart->setAxisX(yf);
+    yChart->setAxisY(y);
+
+    yExpSerie->attachAxis(y);
+    yExpSerie->attachAxis(yf);
+    yCalSerie->attachAxis(y);
+    yCalSerie->attachAxis(yf);
 
     QPen axisPen;
     axisPen.setWidth(1);
