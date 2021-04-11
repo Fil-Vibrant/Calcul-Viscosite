@@ -37,7 +37,9 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_clicked()
 {
     Delta0 d0;
-    d0.calculDelta0();
+    double ros = ui->ros->value();
+    double d0i = ui->d0i->value();
+    d0.calculDelta0(ros, d0i);
     ui->label->setText(QString::number(d0.getD0()));
 
     vector<double> frequencies = d0.getFreq();

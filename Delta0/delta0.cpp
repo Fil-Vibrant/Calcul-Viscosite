@@ -8,49 +8,51 @@ Delta0::Delta0(QObject *parent) : QObject(parent)
 
 }
 
-void Delta0::calculDelta0()
+void Delta0::calculDelta0(double r, double d)
 {
-    if ( StartScilab(NULL, NULL, 0) == FALSE ) // Appel de Scilab
-    {
-        //qDebug() << "Impossible d'appeler StartScilab";
-    }
-    else
-        SendScilabJob((char*)"exec('C:/Users/SN/Desktop/ProjetScilab/delta0.sci');");
+    Call_ScilabOpen(NULL, FALSE, NULL, 0);
+    qDebug() << "Scilab started";
+    // ros and d0i inputs
+    // Declare ros and D0i variables (matrix in Scilab)
+    double ros[] = {r},
+           d0i[] = {d};
+
+    int row = 1, col = 1; // number of rows & cols of each matrix
+
+    // Scilab variables names
+    char rosVarName[] = "ros";
+    char d0iVarName[] = "D0i";
+
+    // Write into Scilab's memory
+    SciErr ROS = createNamedMatrixOfDouble(pvApiCtx, rosVarName, row, col, ros);
+    SciErr D0I = createNamedMatrixOfDouble(pvApiCtx, d0iVarName, row, col, d0i);
+
+    SendScilabJob((char*)"exec('C:/Users/SN/Desktop/ProjetScilab/delta0.sci');");
 
     int* piD0 = NULL;
-    int* piROS = NULL;
-    int* piD0I = NULL;
 
+    // Read into Scilab's memory
     SciErr D0 = getVarAddressFromName(pvApiCtx, "D0", &piD0);
-    SciErr ROS = getVarAddressFromName(pvApiCtx, "ros", &piROS);
-    SciErr D0I = getVarAddressFromName(pvApiCtx, "D0i", &piD0I);
 
     if (D0.iErr || ROS.iErr || D0I.iErr)
     {
-        //qDebug() << "Impossible de recuperer une des variables";
+        qDebug() << "Impossible de recuperer une des variables";
     }
     else
     {
         //*pi renvoie le TYPE de la variable. Ici: sci_matrix: matrices de double
+
         int ligne, colonne; // va contenir le nb de lignes et de colonnes de la matrice
         double *matrixOfDouble = NULL;
         D0 = getMatrixOfDouble(pvApiCtx, piD0, &ligne, &colonne, &matrixOfDouble);
         delta0 = *matrixOfDouble; // récupération de D0
-        ROS = getMatrixOfDouble(pvApiCtx, piROS, &ligne, &colonne, &matrixOfDouble);
-        ros = *matrixOfDouble; // récupération de ros
-        D0I = getMatrixOfDouble(pvApiCtx, piD0I, &ligne, &colonne, &matrixOfDouble);
-        D0i = *matrixOfDouble; // récupréation de d0i
 
         getXexpValues();
         getFrequencies();
         getXcalValues();
         getYexpValues();
         getYcalValues();
-    }
 
-    if (TerminateScilab(NULL) == FALSE)
-    {
-        //qDebug() << "Impossible d'appeler TerminateScilab\n";
     }
 }
 
@@ -89,7 +91,7 @@ void Delta0::getFrequencies()
 
     if (Freq.iErr)
     {
-        //qDebug() << "Impossible de recuperer une des variables";
+        qDebug() << "Impossible de recuperer une des variables";
     }
     else
     {
@@ -113,7 +115,7 @@ void Delta0::getXcalValues()
 
     if (xcal.iErr)
     {
-        //qDebug() << "Impossible de recuperer une des variables";
+        qDebug() << "Impossible de recuperer une des variables";
     }
     else
     {
@@ -175,16 +177,6 @@ void Delta0::getYcalValues()
             Ycal.push_back(matrixOfDouble[i]); // ajout des valeurs dans un tableau dynamique
         }
     }
-}
-
-double Delta0::getRos()
-{
-    return ros;
-}
-
-double Delta0::getD0i()
-{
-    return D0i;
 }
 
 double Delta0::getD0()

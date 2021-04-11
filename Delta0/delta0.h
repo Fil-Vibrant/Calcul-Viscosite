@@ -16,9 +16,8 @@ class Delta0 : public QObject
     Q_OBJECT
 
     double delta0,
-           rayonFil,
-           ros,
-           D0i;
+           rayonFil;
+
      vector<double> Xexp,
                     frequencies,
                     Xcal,
@@ -28,9 +27,7 @@ class Delta0 : public QObject
 public:
     explicit Delta0(QObject *parent = nullptr);
 
-    double getRos(),
-           getD0i(),
-           getD0();
+    double getD0();
 
     vector<double> getXexp(),
                    getXcal(),
@@ -44,7 +41,7 @@ public:
          getYexpValues(),
          getYcalValues();
 
-    void calculDelta0();
+    void calculDelta0(double r, double d);
 
 signals:
 
