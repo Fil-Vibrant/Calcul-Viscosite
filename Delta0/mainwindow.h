@@ -6,6 +6,7 @@
 #include <delta0.h>
 #include <QDebug>
 #include <graphesdelta0.h>
+#include <QFileDialog>
 
 using namespace QtCharts;
 

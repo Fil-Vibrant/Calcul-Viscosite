@@ -36,10 +36,13 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
+    QString dataFileName = QFileDialog::getOpenFileName(this, tr("Data file"), "", tr("Text Files (*.txt)"));
+    QString scilabFileName = QFileDialog::getOpenFileName(this, tr("Scilab file"), "", tr("Scilab Files (*.sci *.sce)"));
+
     Delta0 d0;
     double ros = ui->ros->value();
     double d0i = ui->d0i->value();
-    d0.calculDelta0(ros, d0i, "C:/Users/SN/Desktop/ProjetScilab/dataAirAmetek.txt", "C:/Users/SN/Desktop/ProjetScilab/delta0.sci");
+    d0.calculDelta0(ros, d0i, dataFileName, scilabFileName);
     ui->label->setText(QString::number(d0.getD0()));
 
     vector<double> frequencies = d0.getFreq();
