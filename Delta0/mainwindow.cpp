@@ -38,19 +38,22 @@ void MainWindow::on_pushButton_clicked()
 {
     QString dataFileName = QFileDialog::getOpenFileName(this, tr("Data file"), "", tr("Text Files (*.txt)"));
     QString scilabFileName = QFileDialog::getOpenFileName(this, tr("Scilab file"), "", tr("Scilab Files (*.sci *.sce)"));
+    if (dataFileName.length() > 0 && scilabFileName.length() > 0)
+    {
+        Delta0 d0;
+        double ros = ui->ros->value();
+        double d0i = ui->d0i->value();
+        d0.calculDelta0(ros, d0i, dataFileName, scilabFileName);
+        //double D0 = d0.getD0(); ligne à ajouter dans l'IHM D0 doit être un attribut
+        ui->label->setText(QString::number(d0.getD0()));
 
-    Delta0 d0;
-    double ros = ui->ros->value();
-    double d0i = ui->d0i->value();
-    d0.calculDelta0(ros, d0i, dataFileName, scilabFileName);
-    //double D0 = d0.getD0(); ligne à ajouter dans l'IHM D0 doit être un attribut
-    ui->label->setText(QString::number(d0.getD0()));
+        vector<double> frequencies = d0.getFreq();
 
-    vector<double> frequencies = d0.getFreq();
+        GraphesDelta0 g;
+        xChart = g.drawXGraph(d0.getXexp(), d0.getXcal(), frequencies);
+        yChart = g.drawYGraph(d0.getYexp(), d0.getYcal(), frequencies);
+        xGraph->setChart(xChart);
+        yGraph->setChart(yChart);
+    }
 
-    GraphesDelta0 g;
-    xChart = g.drawXGraph(d0.getXexp(), d0.getXcal(), frequencies);
-    yChart = g.drawYGraph(d0.getYexp(), d0.getYcal(), frequencies);
-    xGraph->setChart(xChart);
-    yGraph->setChart(yChart);
 }

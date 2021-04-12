@@ -49,7 +49,7 @@ QChart* GraphesCalibration::drawXGraph(vector<double> xExp, vector<double> xCal,
     xChart->addSeries(xExpSerie);
 
     xf->setRange(frequencies[0]-0.05, frequencies[frequencies.size()-1]+0.05);
-    x->setRange(min-0.0000005, max+0.0000005);
+    x->setRange(min-0.0000002, max+0.0000002);
     x->setTickCount(5);
     xf->setTickCount(20);
     QPen minorPen(QColor::fromRgb(76, 85, 92), 1, Qt::SolidLine);
@@ -106,7 +106,7 @@ QChart* GraphesCalibration::drawYGraph(vector<double> yExp, vector<double> yCal,
     //yChart->createDefaultAxes();
 
     yf->setRange(frequencies[0]-0.05, frequencies[frequencies.size()-1]+0.05);
-    y->setRange(min-0.0000005, max+0.0000005);
+    y->setRange(min-0.0000002, max+0.0000002);
     y->setTickCount(5);
     yf->setTickCount(20);
     QPen minorPen(QColor::fromRgb(76, 85, 92), 1, Qt::SolidLine);
