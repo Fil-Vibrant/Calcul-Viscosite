@@ -13,8 +13,7 @@ using namespace std;
 class Delta0
 {
 
-    double delta0,
-           rayonFil;
+    double delta0;
 
      vector<double> Xexp,
                     frequencies,

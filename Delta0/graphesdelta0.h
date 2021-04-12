@@ -4,8 +4,6 @@
 #include <QObject>
 #include <QtCharts>
 #include <vector>
-#include <delta0.h>
-#include <mainwindow.h>
 
 using namespace QtCharts;
 using namespace std;
@@ -15,7 +13,6 @@ class GraphesDelta0 : public QObject
     Q_OBJECT
 
 private:
-    Delta0 *d0;
 
     QChart* xChart;
     QScatterSeries* xExpSerie;

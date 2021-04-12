@@ -43,6 +43,7 @@ void MainWindow::on_pushButton_clicked()
     double ros = ui->ros->value();
     double d0i = ui->d0i->value();
     d0.calculDelta0(ros, d0i, dataFileName, scilabFileName);
+    //double D0 = d0.getD0(); ligne à ajouter dans l'IHM D0 doit être un attribut
     ui->label->setText(QString::number(d0.getD0()));
 
     vector<double> frequencies = d0.getFreq();

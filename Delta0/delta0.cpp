@@ -3,9 +3,6 @@
 Delta0::Delta0()
 {
     delta0 = 0;
-    rayonFil = 0;
-    //viscosite = 0;
-
 }
 
 void Delta0::calculDelta0(double r, double d, QString pathToData, QString pathToSciFile)
