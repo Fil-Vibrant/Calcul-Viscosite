@@ -1,6 +1,6 @@
 #include "delta0.h"
 
-Delta0::Delta0(QObject *parent) : QObject(parent)
+Delta0::Delta0()
 {
     delta0 = 0;
     rayonFil = 0;

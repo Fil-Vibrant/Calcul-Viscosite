@@ -1,7 +1,6 @@
 #ifndef DELTA0_H
 #define DELTA0_H
 
-#include <QObject>
 #include "stack-c.h"
 #include "call_scilab.h"
 #include "api_scilab.h"
@@ -11,9 +10,8 @@
 
 using namespace std;
 
-class Delta0 : public QObject
+class Delta0
 {
-    Q_OBJECT
 
     double delta0,
            rayonFil;
@@ -25,7 +23,7 @@ class Delta0 : public QObject
                     Ycal;
 
 public:
-    explicit Delta0(QObject *parent = nullptr);
+    explicit Delta0();
 
     double getD0();
 
@@ -43,7 +41,6 @@ public:
 
     void calculDelta0(double r, double d, QString pathToData, QString pathToSciFile);
 
-signals:
 
 };
 
