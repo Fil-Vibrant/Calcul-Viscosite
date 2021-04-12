@@ -6,16 +6,128 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>969</width>
+    <height>505</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
-  <widget class="QMenuBar" name="menubar"/>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="5" column="1" colspan="6">
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="1" column="0">
+       <layout class="QGridLayout" name="yGraphLayout"/>
+      </item>
+      <item row="0" column="0">
+       <layout class="QGridLayout" name="xGraphLayout"/>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>ros 2</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="4">
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>Eta fluide calibration</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>ro fluide calibration</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="5">
+     <widget class="QPushButton" name="pushButton">
+      <property name="text">
+       <string>Calibration</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="4">
+     <widget class="QDoubleSpinBox" name="etaFluideCal">
+      <property name="decimals">
+       <number>9</number>
+      </property>
+      <property name="maximum">
+       <double>100000000.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>0.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="3">
+     <widget class="QDoubleSpinBox" name="d0">
+      <property name="decimals">
+       <number>9</number>
+      </property>
+      <property name="maximum">
+       <double>100000000.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>0.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="3">
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>D0</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QDoubleSpinBox" name="ros2">
+      <property name="decimals">
+       <number>0</number>
+      </property>
+      <property name="maximum">
+       <double>100000000.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>19304.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="2">
+     <widget class="QDoubleSpinBox" name="roFluideCal">
+      <property name="decimals">
+       <number>0</number>
+      </property>
+      <property name="maximum">
+       <double>100000000.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>19304.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="6">
+     <widget class="QLabel" name="rayon">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="6">
+     <widget class="QLabel" name="rayon_2">
+      <property name="text">
+       <string>Rayon</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
  </widget>
  <resources/>
  <connections/>

@@ -2,6 +2,13 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QtCharts>
+#include <calibration.h>
+#include <QDebug>
+#include <graphescalibration.h>
+#include <QFileDialog>
+
+using namespace QtCharts;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -15,7 +22,20 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
+
+    QChart* xChart;/*
+    QScatterSeries* xExpSerie;
+    QSplineSeries* xCalSerie;*/
+    QChartView* xGraph;
+
+    QChart* yChart;/*
+    QScatterSeries* yExpSerie;
+    QSplineSeries* yCalSerie;*/
+    QChartView* yGraph;
 };
 #endif // MAINWINDOW_H
