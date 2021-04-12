@@ -41,7 +41,7 @@ public:
          getYexpValues(),
          getYcalValues();
 
-    void calculDelta0(double r, double d);
+    void calculDelta0(double r, double d, QString pathToData, QString pathToSciFile);
 
 signals:
 

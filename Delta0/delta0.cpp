@@ -8,7 +8,7 @@ Delta0::Delta0(QObject *parent) : QObject(parent)
 
 }
 
-void Delta0::calculDelta0(double r, double d)
+void Delta0::calculDelta0(double r, double d, QString pathToData, QString pathToSciFile)
 {
     Call_ScilabOpen(NULL, FALSE, NULL, 0);
     qDebug() << "Scilab started";
@@ -27,7 +27,30 @@ void Delta0::calculDelta0(double r, double d)
     SciErr ROS = createNamedMatrixOfDouble(pvApiCtx, rosVarName, row, col, ros);
     SciErr D0I = createNamedMatrixOfDouble(pvApiCtx, d0iVarName, row, col, d0i);
 
-    SendScilabJob((char*)"exec('C:/Users/SN/Desktop/ProjetScilab/delta0.sci');");
+    // command to read data file
+    QString beginReadCommand = "Data = read('";
+    QString endReadCommand = "',-1,3);";
+    QString dataPath = pathToData;
+    QString rCommand = beginReadCommand + dataPath + endReadCommand;
+    QByteArray readCommand = rCommand.toLocal8Bit();
+
+    // sending the command to Scilab
+    SendScilabJob(readCommand.data());
+
+    // Reading data from file
+    SendScilabJob((char*)"f = Data(:,1)");
+    SendScilabJob((char*)"Xexp = Data(:,2)");
+    SendScilabJob((char*)"Yexp = Data(:,3)");
+
+    // command to execute Scilab's file
+    QString beginExecCommand = "exec('";
+    QString endExecCommand = "');";
+    QString sciFilePath = pathToSciFile;
+    QString eCommand = beginExecCommand + sciFilePath + endExecCommand;
+    QByteArray execCommand = eCommand.toLocal8Bit();
+
+    // sending the command to Scilab
+    SendScilabJob(execCommand.data());
 
     int* piD0 = NULL;
 
@@ -65,7 +88,7 @@ void Delta0::getXexpValues()
 
     if (xexp.iErr)
     {
-        qDebug() << "Impossible de recuperer une des variables";
+        qDebug() << "Impossible de recuperer Xexp";
     }
     else
     {
@@ -115,7 +138,7 @@ void Delta0::getXcalValues()
 
     if (xcal.iErr)
     {
-        qDebug() << "Impossible de recuperer une des variables";
+        qDebug() << "Impossible de recuperer Xcal";
     }
     else
     {
@@ -139,7 +162,7 @@ void Delta0::getYexpValues()
 
     if (yexp.iErr)
     {
-        //qDebug() << "Impossible de recuperer une des variables";
+        qDebug() << "Impossible de recuperer Yexp";
     }
     else
     {
@@ -163,7 +186,7 @@ void Delta0::getYcalValues()
 
     if (ycal.iErr)
     {
-        //qDebug() << "Impossible de recuperer une des variables";
+        qDebug() << "Impossible de recuperer Ycal";
     }
     else
     {
