@@ -1,10 +1,8 @@
 #ifndef DELTA0_H
 #define DELTA0_H
 
-#include "stack-c.h"
 #include "call_scilab.h"
 #include "api_scilab.h"
-#include "Scierror.h"
 #include <vector>
 #include <QDebug>
 
@@ -21,6 +19,12 @@ class Delta0
                     Yexp,
                     Ycal;
 
+     void setXexpValues(),
+          setFrequencies(),
+          setXcalValues(),
+          setYexpValues(),
+          setYcalValues();
+
 public:
     explicit Delta0();
 
@@ -28,15 +32,9 @@ public:
 
     vector<double> getXexp(),
                    getXcal(),
-                   getFreq(),
+                   getFrequencies(),
                    getYexp(),
                    getYcal();
-
-    void getXexpValues(),
-         getFrequencies(),
-         getXcalValues(),
-         getYexpValues(),
-         getYcalValues();
 
     void calculDelta0(double r, double d, QString pathToData, QString pathToSciFile);
 

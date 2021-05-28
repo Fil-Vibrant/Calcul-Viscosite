@@ -64,15 +64,15 @@ void Viscosite::calculViscosite(double ro, double ros3, double rayon, double del
         VISCO = getMatrixOfDouble(pvApiCtx, piVisco, &ligne, &colonne, &matrixOfDouble);
         viscosite = *matrixOfDouble;
 
-        getXexpValues();
-        getFrequencies();
-        getXcalValues();
-        getYexpValues();
-        getYcalValues();
+        setXexpValues();
+        setFrequencies();
+        setXcalValues();
+        setYexpValues();
+        setYcalValues();
     }
 }
 
-void Viscosite::getXexpValues()
+void Viscosite::setXexpValues()
 {
     qDebug() << "xexp";
     int* piXexp = NULL;
@@ -99,7 +99,7 @@ void Viscosite::getXexpValues()
     }
 }
 
-void Viscosite::getFrequencies()
+void Viscosite::setFrequencies()
 {
     int* piFreq = NULL;
 
@@ -123,7 +123,7 @@ void Viscosite::getFrequencies()
     }
 }
 
-void Viscosite::getXcalValues()
+void Viscosite::setXcalValues()
 {
     int* piXcal = NULL;
 
@@ -147,7 +147,7 @@ void Viscosite::getXcalValues()
     }
 }
 
-void Viscosite::getYexpValues()
+void Viscosite::setYexpValues()
 {
     int* piYexp = NULL;
 
@@ -171,7 +171,7 @@ void Viscosite::getYexpValues()
     }
 }
 
-void Viscosite::getYcalValues()
+void Viscosite::setYcalValues()
 {
     int* piYcal = NULL;
 
@@ -210,7 +210,7 @@ vector<double> Viscosite::getXcal()
     return Xcal;
 }
 
-vector<double> Viscosite::getFreq()
+vector<double> Viscosite::getFrequencies()
 {
     return frequencies;
 }

@@ -46,7 +46,7 @@ void MainWindow::on_pushButton_clicked()
         double d0 = ui->d0->value(); // d0 est récupérée lors du calcul de delta0 !!
         vis.calculViscosite(ro, ros, rayon, d0, dataFileName, scilabFileName);
         ui->viscosite->setText(QString::number(vis.getViscosite()));
-        vector<double> frequencies = vis.getFreq();
+        vector<double> frequencies = vis.getFrequencies();
 
         GraphesViscosite g;
         xChart = g.drawXGraph(vis.getXexp(), vis.getXcal(), frequencies);

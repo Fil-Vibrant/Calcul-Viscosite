@@ -1,10 +1,8 @@
 #ifndef VISCOSITE_H
 #define VISCOSITE_H
 
-#include <stack-c.h>
 #include <call_scilab.h>
 #include <api_scilab.h>
-#include <Scierror.h>
 #include <vector>
 #include <QDebug>
 
@@ -20,11 +18,11 @@ class Viscosite
                    Yexp,
                    Ycal;
 
-    void getXexpValues(),
-         getFrequencies(),
-         getXcalValues(),
-         getYexpValues(),
-         getYcalValues();
+    void setXexpValues(),
+         setFrequencies(),
+         setXcalValues(),
+         setYexpValues(),
+         setYcalValues();
 
 public:
     Viscosite();
@@ -33,7 +31,7 @@ public:
 
     vector<double> getXexp(),
                    getXcal(),
-                   getFreq(),
+                   getFrequencies(),
                    getYexp(),
                    getYcal();
 

@@ -47,7 +47,7 @@ void MainWindow::on_pushButton_clicked()
         //double D0 = d0.getD0(); ligne à ajouter dans l'IHM D0 doit être un attribut
         ui->label->setText(QString::number(d0.getD0()));
 
-        vector<double> frequencies = d0.getFreq();
+        vector<double> frequencies = d0.getFrequencies();
 
         GraphesDelta0 g;
         xChart = g.drawXGraph(d0.getXexp(), d0.getXcal(), frequencies);

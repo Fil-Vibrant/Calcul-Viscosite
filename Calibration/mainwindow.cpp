@@ -45,7 +45,7 @@ void MainWindow::on_pushButton_clicked()
         double d0 = ui->d0->value(); // d0 est récupérée lors du calcul de delta0 !!
         cal.calculRayonFil(ro, ros, eta, d0, dataFileName, scilabFileName);
         ui->rayon->setText(QString::number(cal.getRayonFil()));
-        vector<double> frequencies = cal.getFreq();
+        vector<double> frequencies = cal.getFrequencies();
 
         GraphesCalibration g;
         xChart = g.drawXGraph(cal.getXexp(), cal.getXcal(), frequencies);

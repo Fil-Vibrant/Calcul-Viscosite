@@ -7,8 +7,8 @@ Delta0::Delta0()
 
 void Delta0::calculDelta0(double r, double d, QString pathToData, QString pathToSciFile)
 {
-    Call_ScilabOpen(NULL, FALSE, NULL, 0);
-    qDebug() << "Scilab started";
+    StartScilab(NULL, NULL, NULL);
+
     // ros and d0i inputs
     // Declare ros and D0i variables (matrix in Scilab)
     double ros[] = {r},
@@ -67,16 +67,16 @@ void Delta0::calculDelta0(double r, double d, QString pathToData, QString pathTo
         D0 = getMatrixOfDouble(pvApiCtx, piD0, &ligne, &colonne, &matrixOfDouble);
         delta0 = *matrixOfDouble; // récupération de D0
 
-        getXexpValues();
-        getFrequencies();
-        getXcalValues();
-        getYexpValues();
-        getYcalValues();
+        setXexpValues();
+        setFrequencies();
+        setXcalValues();
+        setYexpValues();
+        setYcalValues();
 
     }
 }
 
-void Delta0::getXexpValues()
+void Delta0::setXexpValues()
 {
     qDebug() << "xexp";
     int* piXexp = NULL;
@@ -92,9 +92,6 @@ void Delta0::getXexpValues()
         int ligne, colonne;
         double *matrixOfDouble = NULL;
         getMatrixOfDouble(pvApiCtx, piXexp, &ligne, &colonne, &matrixOfDouble);
-        getVarDimension(pvApiCtx, piXexp, &ligne, &colonne); // récupère la taille de la matrice (nb lignes et colonnes)
-        //qDebug() << ligne << colonne;
-        qDebug() << "getting values ...";
         for (int i = 0; i < ligne; ++i)
         {
             Xexp.push_back(matrixOfDouble[i]); // ajout des valeurs dans un tableau dynamique
@@ -103,7 +100,7 @@ void Delta0::getXexpValues()
     }
 }
 
-void Delta0::getFrequencies()
+void Delta0::setFrequencies()
 {
     int* piFreq = NULL;
 
@@ -127,7 +124,7 @@ void Delta0::getFrequencies()
     }
 }
 
-void Delta0::getXcalValues()
+void Delta0::setXcalValues()
 {
     int* piXcal = NULL;
 
@@ -151,7 +148,7 @@ void Delta0::getXcalValues()
     }
 }
 
-void Delta0::getYexpValues()
+void Delta0::setYexpValues()
 {
     int* piYexp = NULL;
 
@@ -175,7 +172,7 @@ void Delta0::getYexpValues()
     }
 }
 
-void Delta0::getYcalValues()
+void Delta0::setYcalValues()
 {
     int* piYcal = NULL;
 
@@ -214,7 +211,7 @@ vector<double> Delta0::getXcal()
     return Xcal;
 }
 
-vector<double> Delta0::getFreq()
+vector<double> Delta0::getFrequencies()
 {
     return frequencies;
 }

@@ -67,15 +67,15 @@ void Calibration::calculRayonFil(double ro, double ros2, double eta, double delt
         RAYON = getMatrixOfDouble(pvApiCtx, piRayon, &ligne, &colonne, &matrixOfDouble);
         rayonFil = *matrixOfDouble;
 
-        getXexpValues();
-        getFrequencies();
-        getXcalValues();
-        getYexpValues();
-        getYcalValues();
+        setXexpValues();
+        setFrequencies();
+        setXcalValues();
+        setYexpValues();
+        setYcalValues();
     }
 }
 
-void Calibration::getXexpValues()
+void Calibration::setXexpValues()
 {
     qDebug() << "xexp";
     int* piXexp = NULL;
@@ -102,7 +102,7 @@ void Calibration::getXexpValues()
     }
 }
 
-void Calibration::getFrequencies()
+void Calibration::setFrequencies()
 {
     int* piFreq = NULL;
 
@@ -126,7 +126,7 @@ void Calibration::getFrequencies()
     }
 }
 
-void Calibration::getXcalValues()
+void Calibration::setXcalValues()
 {
     int* piXcal = NULL;
 
@@ -150,7 +150,7 @@ void Calibration::getXcalValues()
     }
 }
 
-void Calibration::getYexpValues()
+void Calibration::setYexpValues()
 {
     int* piYexp = NULL;
 
@@ -174,7 +174,7 @@ void Calibration::getYexpValues()
     }
 }
 
-void Calibration::getYcalValues()
+void Calibration::setYcalValues()
 {
     int* piYcal = NULL;
 
@@ -213,7 +213,7 @@ vector<double> Calibration::getXcal()
     return Xcal;
 }
 
-vector<double> Calibration::getFreq()
+vector<double> Calibration::getFrequencies()
 {
     return frequencies;
 }
