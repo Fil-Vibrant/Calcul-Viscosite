@@ -38,3 +38,18 @@ double Essai::calculerViscosite(double ro, double ros3, double rayon, double del
     frequencies = visco.getFrequencies();
     return visco.getViscosite();
 }
+float Essai::temperature()
+{
+    float tension;
+    tension= temp.Gettension();
+    return temp.CalculTemp(tension);
+
+}
+
+
+
+
+
+
+
+
