@@ -41,7 +41,7 @@ void Viscosite::calculViscosite(double ro, double ros3, double rayon, double del
 
     // command to execute Scilab's file
     QString beginExecCommand = "exec('";
-    QString endExecCommand = "');";
+    QString endExecCommand = "', -1);";
     QString sciFilePath = pathToSciFile;
     QString eCommand = beginExecCommand + sciFilePath + endExecCommand;
     QByteArray execCommand = eCommand.toLocal8Bit();
@@ -74,7 +74,6 @@ void Viscosite::calculViscosite(double ro, double ros3, double rayon, double del
 
 void Viscosite::setXexpValues()
 {
-    qDebug() << "xexp";
     int* piXexp = NULL;
 
     SciErr xexp = getVarAddressFromName(pvApiCtx, "Xexp", &piXexp);
@@ -95,7 +94,6 @@ void Viscosite::setXexpValues()
         {
             Xexp.push_back(matrixOfDouble[i]); // ajout des valeurs dans un tableau dynamique
         }
-        qDebug() << "values added";
     }
 }
 
