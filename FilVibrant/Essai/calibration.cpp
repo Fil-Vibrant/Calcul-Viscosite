@@ -1,28 +1,30 @@
-#include "delta0.h"
+#include "calibration.h"
 
-Delta0::Delta0()
+Calibration::Calibration()
 {
-    delta0 = 0;
+    rayonFil = 0;
 }
 
-void Delta0::calculDelta0(double r, double d, QString pathToData, QString pathToSciFile)
+void Calibration::calculRayonFil(double ro, double ros2, double eta, double delta0, QString pathToData, QString pathToSciFile)
 {
     StartScilab(NULL, NULL, NULL);
 
-    // ros and d0i inputs
-    // Declare ros and D0i variables (matrix in Scilab)
-    double ros[] = {r},
-           d0i[] = {d};
+    double roFluideCal[] = {ro},
+           ros[] = {ros2},
+           etaFluideCal[] = {eta},
+           d0[] = {delta0};
 
-    int row = 1, col = 1; // number of rows & cols of each matrix
+    int row = 1, col = 1;
 
-    // Scilab variables names
-    char rosVarName[] = "ros";
-    char d0iVarName[] = "D0i";
+    char roVarName[] = "ro",
+         rosVarName[] = "ros",
+         etaVarName[] = "eta",
+         d0VarName[] = "D0";
 
-    // Write into Scilab's memory
+    SciErr RO = createNamedMatrixOfDouble(pvApiCtx, roVarName, row, col, roFluideCal);
     SciErr ROS = createNamedMatrixOfDouble(pvApiCtx, rosVarName, row, col, ros);
-    SciErr D0I = createNamedMatrixOfDouble(pvApiCtx, d0iVarName, row, col, d0i);
+    SciErr ETA = createNamedMatrixOfDouble(pvApiCtx, etaVarName, row, col, etaFluideCal);
+    SciErr D0 = createNamedMatrixOfDouble(pvApiCtx, d0VarName, row, col, d0);
 
     // command to read data file
     QString beginReadCommand = "Data = read('";
@@ -41,7 +43,7 @@ void Delta0::calculDelta0(double r, double d, QString pathToData, QString pathTo
 
     // command to execute Scilab's file
     QString beginExecCommand = "exec('";
-    QString endExecCommand = "');";
+    QString endExecCommand = "', -1);";
     QString sciFilePath = pathToSciFile;
     QString eCommand = beginExecCommand + sciFilePath + endExecCommand;
     QByteArray execCommand = eCommand.toLocal8Bit();
@@ -49,34 +51,30 @@ void Delta0::calculDelta0(double r, double d, QString pathToData, QString pathTo
     // sending the command to Scilab
     SendScilabJob(execCommand.data());
 
-    int* piD0 = NULL;
+    int* piRayon = NULL;
 
-    // Read into Scilab's memory
-    SciErr D0 = getVarAddressFromName(pvApiCtx, "D0", &piD0);
+    SciErr RAYON = getVarAddressFromName(pvApiCtx, "Rayon", &piRayon);
 
-    if (D0.iErr || ROS.iErr || D0I.iErr)
+    if (RO.iErr || ROS.iErr || ETA.iErr || D0.iErr || RAYON.iErr)
     {
-        qDebug() << "Impossible de recuperer une des variables";
+        qDebug() << "Impossible de recuperer une ou plusieurs variables";
     }
     else
     {
-        //*pi renvoie le TYPE de la variable. Ici: sci_matrix: matrices de double
-
-        int ligne, colonne; // va contenir le nb de lignes et de colonnes de la matrice
-        double *matrixOfDouble = NULL;
-        D0 = getMatrixOfDouble(pvApiCtx, piD0, &ligne, &colonne, &matrixOfDouble);
-        delta0 = *matrixOfDouble; // récupération de D0
+        int ligne, colonne;
+        double* matrixOfDouble = NULL;
+        RAYON = getMatrixOfDouble(pvApiCtx, piRayon, &ligne, &colonne, &matrixOfDouble);
+        rayonFil = *matrixOfDouble;
 
         setXexpValues();
         setFrequencies();
         setXcalValues();
         setYexpValues();
         setYcalValues();
-
     }
 }
 
-void Delta0::setXexpValues()
+void Calibration::setXexpValues()
 {
     int* piXexp = NULL;
 
@@ -91,14 +89,17 @@ void Delta0::setXexpValues()
         int ligne, colonne;
         double *matrixOfDouble = NULL;
         getMatrixOfDouble(pvApiCtx, piXexp, &ligne, &colonne, &matrixOfDouble);
+        getVarDimension(pvApiCtx, piXexp, &ligne, &colonne); // récupère la taille de la matrice (nb lignes et colonnes)
+
         for (int i = 0; i < ligne; ++i)
         {
             Xexp.push_back(matrixOfDouble[i]); // ajout des valeurs dans un tableau dynamique
         }
+
     }
 }
 
-void Delta0::setFrequencies()
+void Calibration::setFrequencies()
 {
     int* piFreq = NULL;
 
@@ -122,7 +123,7 @@ void Delta0::setFrequencies()
     }
 }
 
-void Delta0::setXcalValues()
+void Calibration::setXcalValues()
 {
     int* piXcal = NULL;
 
@@ -146,7 +147,7 @@ void Delta0::setXcalValues()
     }
 }
 
-void Delta0::setYexpValues()
+void Calibration::setYexpValues()
 {
     int* piYexp = NULL;
 
@@ -170,7 +171,7 @@ void Delta0::setYexpValues()
     }
 }
 
-void Delta0::setYcalValues()
+void Calibration::setYcalValues()
 {
     int* piYcal = NULL;
 
@@ -194,33 +195,33 @@ void Delta0::setYcalValues()
     }
 }
 
-double Delta0::getD0()
+double Calibration::getRayonFil()
 {
-    return delta0;
+    return rayonFil;
 }
 
-vector<double> Delta0::getXexp()
+vector<double> Calibration::getXexp()
 {
     return Xexp;
 }
 
-vector<double> Delta0::getXcal()
+vector<double> Calibration::getXcal()
 {
     return Xcal;
 }
 
-vector<double> Delta0::getFrequencies()
+vector<double> Calibration::getFrequencies()
 {
     return frequencies;
 }
 
 
-vector<double> Delta0::getYexp()
+vector<double> Calibration::getYexp()
 {
     return Yexp;
 }
 
-vector<double> Delta0::getYcal()
+vector<double> Calibration::getYcal()
 {
     return Ycal;
 }

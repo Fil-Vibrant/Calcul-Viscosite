@@ -41,7 +41,7 @@ void Delta0::calculDelta0(double r, double d, QString pathToData, QString pathTo
 
     // command to execute Scilab's file
     QString beginExecCommand = "exec('";
-    QString endExecCommand = "');";
+    QString endExecCommand = "', -1);";
     QString sciFilePath = pathToSciFile;
     QString eCommand = beginExecCommand + sciFilePath + endExecCommand;
     QByteArray execCommand = eCommand.toLocal8Bit();

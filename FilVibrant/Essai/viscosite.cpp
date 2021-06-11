@@ -1,82 +1,79 @@
-#include "delta0.h"
+#include "viscosite.h"
 
-Delta0::Delta0()
+Viscosite::Viscosite()
 {
-    delta0 = 0;
+    viscosite = 0;
 }
 
-void Delta0::calculDelta0(double r, double d, QString pathToData, QString pathToSciFile)
+void Viscosite::calculViscosite(double ro, double ros3, double rayon, double delta0, QString pathToData, QString pathToSciFile)
 {
     StartScilab(NULL, NULL, NULL);
 
-    // ros and d0i inputs
-    // Declare ros and D0i variables (matrix in Scilab)
-    double ros[] = {r},
-           d0i[] = {d};
+    double roFluideVis[] = {ro},
+           ros[] = {ros3},
+           rayonFil[] = {rayon},
+           d0[] = {delta0};
 
-    int row = 1, col = 1; // number of rows & cols of each matrix
+    int row = 1, col = 1;
 
-    // Scilab variables names
-    char rosVarName[] = "ros";
-    char d0iVarName[] = "D0i";
+    char roVarName[] = "ro",
+         rosVarName[] = "ros",
+         rayonVarName[] = "Rayon",
+         d0VarName[] = "D0";
 
-    // Write into Scilab's memory
+    SciErr RO = createNamedMatrixOfDouble(pvApiCtx, roVarName, row, col, roFluideVis);
     SciErr ROS = createNamedMatrixOfDouble(pvApiCtx, rosVarName, row, col, ros);
-    SciErr D0I = createNamedMatrixOfDouble(pvApiCtx, d0iVarName, row, col, d0i);
+    SciErr RAYON = createNamedMatrixOfDouble(pvApiCtx, rayonVarName, row, col, rayonFil);
+    SciErr D0 = createNamedMatrixOfDouble(pvApiCtx, d0VarName, row, col, d0);
 
-    // command to read data file
     QString beginReadCommand = "Data = read('";
     QString endReadCommand = "',-1,3);";
     QString dataPath = pathToData;
     QString rCommand = beginReadCommand + dataPath + endReadCommand;
     QByteArray readCommand = rCommand.toLocal8Bit();
 
-    // sending the command to Scilab
     SendScilabJob(readCommand.data());
 
     // Reading data from file
     SendScilabJob((char*)"f = Data(:,1)");
     SendScilabJob((char*)"Xexp = Data(:,2)");
     SendScilabJob((char*)"Yexp = Data(:,3)");
-
     // command to execute Scilab's file
     QString beginExecCommand = "exec('";
-    QString endExecCommand = "');";
+    QString endExecCommand = "', -1);";
     QString sciFilePath = pathToSciFile;
     QString eCommand = beginExecCommand + sciFilePath + endExecCommand;
     QByteArray execCommand = eCommand.toLocal8Bit();
 
     // sending the command to Scilab
     SendScilabJob(execCommand.data());
+    int* piVisco = NULL;
 
-    int* piD0 = NULL;
+    SciErr VISCO = getVarAddressFromName(pvApiCtx, "eta", &piVisco);
 
-    // Read into Scilab's memory
-    SciErr D0 = getVarAddressFromName(pvApiCtx, "D0", &piD0);
-
-    if (D0.iErr || ROS.iErr || D0I.iErr)
+    if (RO.iErr || ROS.iErr || RAYON.iErr || D0.iErr || VISCO.iErr)
     {
-        qDebug() << "Impossible de recuperer une des variables";
+        qDebug() << "Impossible de recuperer une ou plusieurs variables";
     }
     else
     {
-        //*pi renvoie le TYPE de la variable. Ici: sci_matrix: matrices de double
-
-        int ligne, colonne; // va contenir le nb de lignes et de colonnes de la matrice
-        double *matrixOfDouble = NULL;
-        D0 = getMatrixOfDouble(pvApiCtx, piD0, &ligne, &colonne, &matrixOfDouble);
-        delta0 = *matrixOfDouble; // récupération de D0
-
+        int ligne, colonne;
+        double* matrixOfDouble = NULL;
+        getMatrixOfDouble(pvApiCtx, piVisco, &ligne, &colonne, &matrixOfDouble);
+        if (VISCO.iErr)
+        {
+            qDebug() << "impossible de recup visco";
+        }
+        viscosite = *matrixOfDouble;
         setXexpValues();
         setFrequencies();
         setXcalValues();
         setYexpValues();
         setYcalValues();
-
     }
 }
 
-void Delta0::setXexpValues()
+void Viscosite::setXexpValues()
 {
     int* piXexp = NULL;
 
@@ -91,14 +88,17 @@ void Delta0::setXexpValues()
         int ligne, colonne;
         double *matrixOfDouble = NULL;
         getMatrixOfDouble(pvApiCtx, piXexp, &ligne, &colonne, &matrixOfDouble);
+        getVarDimension(pvApiCtx, piXexp, &ligne, &colonne); // récupère la taille de la matrice (nb lignes et colonnes)
+
         for (int i = 0; i < ligne; ++i)
         {
             Xexp.push_back(matrixOfDouble[i]); // ajout des valeurs dans un tableau dynamique
         }
+
     }
 }
 
-void Delta0::setFrequencies()
+void Viscosite::setFrequencies()
 {
     int* piFreq = NULL;
 
@@ -122,7 +122,7 @@ void Delta0::setFrequencies()
     }
 }
 
-void Delta0::setXcalValues()
+void Viscosite::setXcalValues()
 {
     int* piXcal = NULL;
 
@@ -146,7 +146,7 @@ void Delta0::setXcalValues()
     }
 }
 
-void Delta0::setYexpValues()
+void Viscosite::setYexpValues()
 {
     int* piYexp = NULL;
 
@@ -170,7 +170,7 @@ void Delta0::setYexpValues()
     }
 }
 
-void Delta0::setYcalValues()
+void Viscosite::setYcalValues()
 {
     int* piYcal = NULL;
 
@@ -194,33 +194,34 @@ void Delta0::setYcalValues()
     }
 }
 
-double Delta0::getD0()
+double Viscosite::getViscosite()
 {
-    return delta0;
+    return viscosite;
 }
 
-vector<double> Delta0::getXexp()
+vector<double> Viscosite::getXexp()
 {
     return Xexp;
 }
 
-vector<double> Delta0::getXcal()
+vector<double> Viscosite::getXcal()
 {
     return Xcal;
 }
 
-vector<double> Delta0::getFrequencies()
+vector<double> Viscosite::getFrequencies()
 {
     return frequencies;
 }
 
 
-vector<double> Delta0::getYexp()
+vector<double> Viscosite::getYexp()
 {
     return Yexp;
 }
 
-vector<double> Delta0::getYcal()
+vector<double> Viscosite::getYcal()
 {
     return Ycal;
 }
+

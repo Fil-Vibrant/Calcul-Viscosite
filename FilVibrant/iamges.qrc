@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>img/menu/Balayage.png</file>
+        <file>img/menu/Calibration.png</file>
+        <file>img/menu/Delta 0.png</file>
+        <file>img/menu/Etalonnage.png</file>
+        <file>img/menu/Graphe X, Y.png</file>
+        <file>img/menu/Graphe Xexp, Yexp.png</file>
+        <file>img/menu/Visco.png</file>
+        <file>img/folder.png</file>
+        <file>img/gear.png</file>
+    </qresource>
+</RCC>
