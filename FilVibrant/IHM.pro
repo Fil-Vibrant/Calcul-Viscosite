@@ -1,4 +1,4 @@
-QT       += core gui charts
+QT       += core gui charts serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -22,6 +22,7 @@ SOURCES += \
     Essai/delta0.cpp \
     Essai/calibration.cpp \
     Essai/viscosite.cpp \
+    Essai/detecteur.cpp \
     main.cpp \
     ihm.cpp
 
@@ -30,6 +31,7 @@ HEADERS += \
     Essai/delta0.cpp \
     Essai/calibration.cpp \
     Essai/viscosite.cpp \
+    Essai/detecteur.h \
     graphes.h \
     ihm.h \
     logs.h

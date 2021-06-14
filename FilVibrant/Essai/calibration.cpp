@@ -76,6 +76,7 @@ void Calibration::calculRayonFil(double ro, double ros2, double eta, double delt
 
 void Calibration::setXexpValues()
 {
+    Xexp.clear();
     int* piXexp = NULL;
 
     SciErr xexp = getVarAddressFromName(pvApiCtx, "Xexp", &piXexp);
@@ -101,6 +102,7 @@ void Calibration::setXexpValues()
 
 void Calibration::setFrequencies()
 {
+    frequencies.clear();
     int* piFreq = NULL;
 
     SciErr Freq = getVarAddressFromName(pvApiCtx, "f", &piFreq);
@@ -126,7 +128,7 @@ void Calibration::setFrequencies()
 void Calibration::setXcalValues()
 {
     int* piXcal = NULL;
-
+    Xcal.clear();
     SciErr xcal = getVarAddressFromName(pvApiCtx, "Xcal", &piXcal);
 
     if (xcal.iErr)
@@ -150,7 +152,7 @@ void Calibration::setXcalValues()
 void Calibration::setYexpValues()
 {
     int* piYexp = NULL;
-
+    Yexp.clear();
     SciErr yexp = getVarAddressFromName(pvApiCtx, "Yexp", &piYexp);
 
     if (yexp.iErr)
@@ -174,7 +176,7 @@ void Calibration::setYexpValues()
 void Calibration::setYcalValues()
 {
     int* piYcal = NULL;
-
+    Ycal.clear();
     SciErr ycal = getVarAddressFromName(pvApiCtx, "Ycal", &piYcal);
 
     if (ycal.iErr)

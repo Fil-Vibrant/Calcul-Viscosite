@@ -37,7 +37,8 @@ double Essai::calculerViscosite(double ro, double ros3, double rayon, double del
     Ycal = visco.getYcal();
     frequencies = visco.getFrequencies();
     return visco.getViscosite();
-}/*
+}
+/*
 float Essai::temperature()
 {
     float tension;
@@ -46,6 +47,70 @@ float Essai::temperature()
 
 }*/
 
+void Essai::creerFichierTxt(QString path)
+{
+    sr850.setFileName(path);
+}
+
+QString Essai::connexionDetecteur()
+{
+    sr850.seConnecter();
+    sr850.initialisationSR850();
+    return sr850.getNomDetecteur();
+}
+
+QString Essai::nomPort()
+{
+    return sr850.getPortName();
+}
+
+void Essai::setParametres(double freqDepart, double freqArrivee, double pasDeFreq, double freqRef, int echantillons) {
+    sr850.setFrequenceDepart(freqDepart);
+    sr850.setFrequenceFin(freqArrivee);
+    sr850.setFrequenceReference(freqRef);
+    sr850.setNombreEchantillon(echantillons);
+    sr850.setPasFrequence(pasDeFreq);
+}
+
+void Essai::modifierTension(double tens)
+{
+    sr850.modificationVoltage(tens);
+}
+
+void Essai::apply1()
+{
+    sr850.applySettings1();
+}
+
+void Essai::apply2()
+{
+    sr850.applySettings2();
+}
+
+void Essai::configTrace()
+{
+    sr850.configTrace1et2();
+}
+
+void Essai::start()
+{
+    sr850.start();
+}
+
+void Essai::etalonnage()
+{
+    sr850.etalonnage();
+}
+
+void Essai::balayage()
+{
+    sr850.lancerBalayage();
+}
+
+void Essai::enregistrerValeurs()
+{
+    sr850.enregistrerDansFichierTxt();
+}
 
 
 

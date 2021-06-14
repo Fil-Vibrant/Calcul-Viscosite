@@ -11,8 +11,8 @@ using namespace QtCharts;
 class Graphes : public QObject
 {
     Q_OBJECT
-    QScatterSeries *xexpserie;
-    QSplineSeries *xcalserie;
+    QScatterSeries *xexpserie, *yexpserie;
+    QSplineSeries *xcalserie, *ycalserie;
 
     QChart* xChart;
     QChart* yChart;
@@ -20,7 +20,10 @@ class Graphes : public QObject
     QValueAxis *xf, *yf, *x, *y;
 public:
     explicit Graphes(QObject *parent = nullptr);
-    QChart* drawXGraph(vector<double> xExp, vector<double> xCal, vector<double> freq);
+    QChart* drawXD0Graph(vector<double> xExp, vector<double> xCal, vector<double> freq);
+    QChart* drawYD0Graph(vector<double> yExp, vector<double> yCal, vector<double> freq);
+    QChart* drawXCalGraph(vector<double> yExp, vector<double> yCal, vector<double> freq);
+    QChart* drawYCalGraph(vector<double> yExp, vector<double> yCal, vector<double> freq);
 
 signals:
 

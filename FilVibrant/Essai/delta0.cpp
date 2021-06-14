@@ -79,7 +79,7 @@ void Delta0::calculDelta0(double r, double d, QString pathToData, QString pathTo
 void Delta0::setXexpValues()
 {
     int* piXexp = NULL;
-
+    Xexp.clear();
     SciErr xexp = getVarAddressFromName(pvApiCtx, "Xexp", &piXexp);
 
     if (xexp.iErr)
@@ -101,7 +101,7 @@ void Delta0::setXexpValues()
 void Delta0::setFrequencies()
 {
     int* piFreq = NULL;
-
+    frequencies.clear();
     SciErr Freq = getVarAddressFromName(pvApiCtx, "f", &piFreq);
 
     if (Freq.iErr)
@@ -125,7 +125,7 @@ void Delta0::setFrequencies()
 void Delta0::setXcalValues()
 {
     int* piXcal = NULL;
-
+    Xcal.clear();
     SciErr xcal = getVarAddressFromName(pvApiCtx, "Xcal", &piXcal);
 
     if (xcal.iErr)
@@ -149,7 +149,7 @@ void Delta0::setXcalValues()
 void Delta0::setYexpValues()
 {
     int* piYexp = NULL;
-
+    Yexp.clear();
     SciErr yexp = getVarAddressFromName(pvApiCtx, "Yexp", &piYexp);
 
     if (yexp.iErr)
@@ -173,7 +173,7 @@ void Delta0::setYexpValues()
 void Delta0::setYcalValues()
 {
     int* piYcal = NULL;
-
+    Ycal.clear();
     SciErr ycal = getVarAddressFromName(pvApiCtx, "Ycal", &piYcal);
 
     if (ycal.iErr)

@@ -76,7 +76,7 @@ void Viscosite::calculViscosite(double ro, double ros3, double rayon, double del
 void Viscosite::setXexpValues()
 {
     int* piXexp = NULL;
-
+    Xexp.clear();
     SciErr xexp = getVarAddressFromName(pvApiCtx, "Xexp", &piXexp);
 
     if (xexp.iErr)
@@ -101,7 +101,7 @@ void Viscosite::setXexpValues()
 void Viscosite::setFrequencies()
 {
     int* piFreq = NULL;
-
+    frequencies.clear();
     SciErr Freq = getVarAddressFromName(pvApiCtx, "f", &piFreq);
 
     if (Freq.iErr)
@@ -125,7 +125,7 @@ void Viscosite::setFrequencies()
 void Viscosite::setXcalValues()
 {
     int* piXcal = NULL;
-
+    Xcal.clear();
     SciErr xcal = getVarAddressFromName(pvApiCtx, "Xcal", &piXcal);
 
     if (xcal.iErr)
@@ -149,7 +149,7 @@ void Viscosite::setXcalValues()
 void Viscosite::setYexpValues()
 {
     int* piYexp = NULL;
-
+    Yexp.clear();
     SciErr yexp = getVarAddressFromName(pvApiCtx, "Yexp", &piYexp);
 
     if (yexp.iErr)
@@ -173,7 +173,7 @@ void Viscosite::setYexpValues()
 void Viscosite::setYcalValues()
 {
     int* piYcal = NULL;
-
+    Ycal.clear();
     SciErr ycal = getVarAddressFromName(pvApiCtx, "Ycal", &piYcal);
 
     if (ycal.iErr)

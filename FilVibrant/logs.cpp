@@ -8,11 +8,9 @@ Logs::Logs(QObject *parent) : QObject(parent) {
 
     QString fileName = QDir::currentPath() + "/logs/" + QDateTime::currentDateTime().toString("yyyy-MM-dd hh-mm-ss") +".log";
 
-    if (!fileName.isEmpty()) {
-         file = new QFile;
-         file->setFileName(fileName);
-         file->open(QIODevice::Append | QIODevice::Text);
-    }
+    file = new QFile;
+    file->setFileName(fileName);
+    file->open(QIODevice::Append | QIODevice::Text);
     write("=== Démarage ===", false);
 }
 

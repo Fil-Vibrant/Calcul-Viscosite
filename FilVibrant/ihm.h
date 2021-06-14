@@ -35,10 +35,10 @@ private:
      Graphes *graph;
 
      // Déclaration des graphes
-     QChart *xDelta0Chart;
-     QChart *yDelta0Chart;
-     QChartView *xDelta0Graph;
-     QChartView *yDelta0Graph;
+     QChart *xDelta0Chart, *xCalibrationChart, *xViscoChart;
+     QChart *yDelta0Chart, *yCalibrationChart, *yViscoChart;
+     QChartView *xDelta0Graph, *xCalibrationGraph, *xViscoGraph;
+     QChartView *yDelta0Graph, *yCalibrationGraph, *yViscoGraph;
 public:
     IHM(QWidget *parent = nullptr);
     ~IHM();
@@ -77,8 +77,6 @@ private slots:
     // Boutons
     void on_lineEdit_selectfolder_clicked();
     void on_btn_etalonage_2_clicked();
-    void on_pushButton_sens_descendant_clicked();
-    void on_pushButton_sens_montant_clicked();
     void on_pushButton_balay_clicked();
     void on_pushButton_delta0_clicked();
     void on_pushButton_calibration_clicked();
@@ -88,6 +86,12 @@ private slots:
     void on_pushButton_apply_set_2_clicked();
     void on_pushButton_config_trace_clicked();
     void on_pushButton_edit_tention_clicked();
+
+    void on_pushButton_config_clicked();
+
+    void on_pushButton_edit_tension_clicked();
+
+    void on_pushButton_start_clicked();
 
 private:
     Ui::IHM *ui;
